@@ -16,8 +16,8 @@ class Map():
     Map object
     - coordinates start on top left
     - is structured in layers
-        * base_layer: the basic input map
-        * display_layer: for any modifications
+        * base_layer: the basic input map, read-only
+        * display_layer: for any modifications. Displayed in red.
     """
     def __init__(self, input_file):
         with open(input_file) as f:
@@ -51,11 +51,12 @@ class Map():
 
 class TobogganDrive():
     """
+    Let's drive into trees
     """
-    def __init__(self, map):
+    def __init__(self, map, run_vector):
         self.map = map
         self.start_position = [0,0]
-        self.run_vector = [3,1]
+        self.run_vector = run_vector
         self.crashed_in_tree = 0
 
     def run(self):
@@ -71,5 +72,26 @@ class TobogganDrive():
             position = [position[0] + self.run_vector[0], position[1] + self.run_vector[1]]
         return self.crashed_in_tree
 
-toboggan = TobogganDrive(Map("input"))
-print(toboggan.run())
+# First half
+t = TobogganDrive(Map("input"), [3,1])
+a_run = t.run()
+print(f"Slope {t.run_vector} => Crashed {a_run} times")
+
+# Second half
+t = TobogganDrive(Map("input"), [1,1])
+b_run = t.run()
+print(f"Slope {t.run_vector} => Crashed {b_run} times")
+
+t = TobogganDrive(Map("input"), [5,1])
+c_run = t.run()
+print(f"Slope {t.run_vector} => Crashed {c_run} times")
+
+t = TobogganDrive(Map("input"), [7,1])
+d_run = t.run()
+print(f"Slope {t.run_vector} => Crashed {d_run} times")
+
+t = TobogganDrive(Map("input"), [1,2])
+e_run = t.run()
+print(f"Slope {t.run_vector} => Crashed {e_run} times")
+
+print(a_run * b_run * c_run * d_run * e_run)
