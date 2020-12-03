@@ -35,7 +35,7 @@ def test_map_display(capsys):
     assert reference == capture.out
 
 def test_drive(capsys):
-    t = TobogganDrive(Map("test_input"))
+    t = TobogganDrive(Map("test_input"), [3,1])
     crashed = t.run()
     assert 7 == crashed
     t.map.display()
